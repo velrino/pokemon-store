@@ -1,41 +1,16 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 </head>
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
-
-  <!--angular entender que eu estou colocando um componente aqui dentro-->
-   <app-header></app-header>
-
-    <!-- Container (The Band Section) -->
-    <div id="band" class="container text-center">
-        <h3>Sua lista de Pokemons</h3>
-        <div class="row">
-            <div class="col-sm-4">
-                <p class="text-center" style="color:rgb(214, 42, 191)"><strong>Bulbassauro</strong></p><br>
-                <a href="pokemons-detail.html" data-toggle="collapse">
-                    <img src="butterfree.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
-                </a>
-                <button type="button" class="btn btn-warning">Detalhes</button>
-            </div>
-            <div class="col-sm-4">
-                <p class="text-center" style="color:rgb(214, 42, 191)"><strong>Blastoise</strong></p><br>
-                <a href="pokemons-detail.html" data-toggle="collapse"><img src="bulbassauro.jpg" class="img-circle person" alt="Random Name" width="255" height="255"></a>
-                <button type="button" class="btn btn-warning">Detalhes</button>
-            </div>
-            <div class="col-sm-4">
-                <p class="text-center" style="color:rgb(214, 42, 191)"><strong>Squirtle</strong></p><br>
-                <a href="pokemons-detail.html" data-toggle="collapse"><img src="blastoise.jpg" class="img-circle person" alt="Random Name" width="255" height="255"></a>
-                <button type="button" class="btn btn-warning">Detalhes</button>
-            </div>
-        </div>
+    <app-header></app-header>
+    <div id="Pokemons" class="container text-center">
+        <router-outlet></router-outlet>
+        <app-footer></app-footer>
     </div>
-
-    <!--angular entender que eu estou colocando um componente aqui dentro-->
-    <app-footer></app-footer>
-
 </body>
 
 </html>
