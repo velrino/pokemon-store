@@ -1,13 +1,13 @@
 <div id="Pokemons" class="container text-center">
     <h3>Sua lista de Pokemons</h3>
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-5"  *ngFor="let product of data.products | async">
             <a href="pokemons-detail.html" data-toggle="collapse">
                 <img src="assets/img/bulbassauro.png" class="img-circle person" alt="Random Name" width="255"
                     height="255">
             </a>
-            <p class="text-center" style="color:rgb(214, 42, 191)"><strong>Bulbassauro</strong></p><br>
-            <button type="button" class="btn btn-warning" (click)="openModal(template)">Detalhes</button>
+            <p class="text-center" style="color:rgb(214, 42, 191)"><strong>{{product.name}}</strong></p><br>
+            <button type="button" class="btn btn-warning" (click)="openModal(template, product)">Detalhes</button>
         </div>
         <div class="col-sm-5">
             <a href="pokemons-detail.html" data-toggle="collapse"><img src="assets/img/blastoise.png"
@@ -34,12 +34,12 @@
 
 <ng-template #template>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Modal</h4>
+        <h4 class="modal-title pull-left">{{ data.product.name }}</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        This is a modal.
+        {{ data.product.about }}
     </div>
 </ng-template>
