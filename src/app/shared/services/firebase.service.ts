@@ -10,12 +10,12 @@ import { map } from 'rxjs/operators';
 export class FirebaseDatabaseService {
     constructor(private db: AngularFireDatabase) { }
 
-    delete(collection: string, key: string) {
-        this.db.list(collection).remove(key)
+    delete(collection: string, data: any) {
+        this.db.list(collection).remove(data.key)
     }
 
-    edit(collection: string, key: string, data: any) {
-        this.db.list(collection).update(key, data)
+    edit(collection: string, data: any) {
+        this.db.list(collection).update(data.key, data)
     }
 
     insert(collection: string, data: any): void {
