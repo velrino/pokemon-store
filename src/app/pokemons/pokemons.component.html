@@ -1,45 +1,68 @@
 <div id="Pokemons" class="container text-center">
     <h3>Sua lista de Pokemons</h3>
+    <button type="button" class="btn btn-success" (click)="openCreateModal()">Adicionar</button>
     <div class="row">
-        <div class="col-sm-5">
-            <a href="pokemons-detail.html" data-toggle="collapse">
-                <img src="assets/img/bulbassauro.png" class="img-circle person" alt="Random Name" width="255"
-                    height="255">
-            </a>
-            <p class="text-center" style="color:rgb(214, 42, 191)"><strong>Bulbassauro</strong></p><br>
-            <button type="button" class="btn btn-warning" (click)="openModal(template)">Detalhes</button>
-        </div>
-        <div class="col-sm-5">
-            <a href="pokemons-detail.html" data-toggle="collapse"><img src="assets/img/blastoise.png"
-                    class="img-circle person" alt="Random Name" width="255" height="255"></a>
-            <p class="text-center" style="color:rgb(214, 42, 191)"><strong>Blastoise</strong></p><br>
-            <button type="button" class="btn btn-warning">Detalhes</button>
-        </div>
-        <div class="col-sm-5">
-            <a href="pokemons-detail.html" data-toggle="collapse"><img src="assets/img/squirtle.png"
-                    class="img-circle person" alt="Random Name" width="255" height="255"></a>
-            <p class="text-center" style="color:rgb(214, 42, 191)"><strong>Squirtle</strong></p><br>
-            <button type="button" class="btn btn-warning">Detalhes</button>
-        </div>
-        <div class="col-sm-5">
-            <a href="pokemons-detail.html" data-toggle="collapse"><img src="assets/img/caterpie.png"
-                    class="img-circle person" alt="Random Name" width="255" height="255"></a>
-            <p class="text-center" style="color:rgb(214, 42, 191)"><strong>Squirtle</strong></p><br>
-            <button type="button" class="btn btn-warning">Detalhes</button>
-            <!-- <ngbd-modal-content>
-                </ngbd-modal-content> -->
+        <div class="col-sm-5" *ngFor="let product of data.products | async">
+            <img src="assets/img/{{product.img}}.png" class="img-circle person" alt="Random Name" width="255"
+                height="255">
+            <p class="text-center" style="color:rgb(214, 42, 191)"><strong>{{product.name}}</strong></p><br>
+            <button type="button" class="btn btn-warning" (click)="openModal(product)">Detalhes</button>
         </div>
     </div>
 </div>
 
-<ng-template #template>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Modal</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
+<div class="modal fade" bsModal #viewModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-nested-name1" class="modal-title pull-left">{{ data.product.name }}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="viewModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-left">
+                {{ data.product.text }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="openEditModal()">Editar</button>
+                <button type="button" class="btn btn-danger" (click)="deleteProduct()">Deletar</button>
+            </div>
+        </div>
     </div>
-    <div class="modal-body">
-        This is a modal.
+</div>
+
+<div class="modal fade" bsModal #mutateModal="bs-modal" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-nested-name1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-nested-name1" class="modal-title pull-left">{{ default.formEdit ? 'Editar' : 'Criar'}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="mutateModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-left">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Nome</label>
+                        <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
+                            placeholder="Pikachu" [(ngModel)]="data.product.name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Descrição</label>
+                        <textarea name="text" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            [(ngModel)]="data.product.text"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" [(ngModel)]="data.product.img" name="img">
+                            <option *ngFor="let option of default.options" [value]="option">
+                                {{option}}
+                            </option>
+                        </select>
+                    </div>
+                </form>
+                <button type="button" class="btn btn-primary" (click)="submit()">Salvar</button>
+            </div>
+        </div>
     </div>
-</ng-template>
+</div>
